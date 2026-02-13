@@ -1,0 +1,308 @@
+/* variables de color */
+
+
+/* body y layout (mantener tu código existente) */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--pink-4);
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Forzar ocultar la barra de desplazamiento */
+html, body {
+  overflow: hidden !important;
+  height: 100%;
+}
+
+/* Ocultar scrollbars WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Por si algún contenedor genera scroll: asegurar que no muestre barras visibles */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* contenedor pétalos */
+.petal-container{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+  display: block;
+}
+
+/* corazón (reemplaza la clase .petal anterior) */
+.petal{
+    position: absolute;
+    width: 24px;   /* valor por defecto; petals.js ajusta inline */
+    height: 24px;  /* mantener cuadrado para formar corazón */
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 6;
+    /* el cuadrado rotado formará la base del corazón */
+    transform: rotate(-45deg);
+    will-change: transform, opacity;
+    animation-name: fall, sway;
+    animation-iteration-count: infinite;
+    opacity: 0.96;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    background: linear-gradient(180deg, var(--pink-2), var(--pink-3));
+    border-radius: 8%;
+}
+
+/* las dos mitades redondeadas para formar el corazón */
+.petal::before,
+.petal::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* desplazar las circunferencias para crear la forma de corazón */
+.petal::before{
+    top: -50%;
+    left: 0;
+}
+.petal::after{
+    left: 50%;
+    top: 0;
+}
+
+/* animaciones (usa tus keyframes existentes o los siguientes) */
+@keyframes fall{
+  0%{ transform: translateY(-10vh) rotate(-45deg) }
+  100%{ transform: translateY(110vh) rotate(315deg); opacity:0.12 }
+}
+
+@keyframes sway{
+  0%{ transform: translateX(0) rotate(-45deg) }
+  50%{ transform: translateX(18px) rotate(20deg) }
+  100%{ transform: translateX(-12px) rotate(-80deg) }
+}
+
+/* responsivo: corazones más pequeños en pantallas pequeñas */
+@media (max-width:600px){
+  .petal{ width:18px; height:18px; border-radius:7% }
+  .petal::before, .petal::after{ border-radius:50% }
+}
+
+/* Falling text "Bubu" — estilos y animaciones */
+.petal-container .bubu{
+  position: absolute;
+  display: inline-block;
+  color: #f3aacb;              /* color solicitado */
+  font-weight: 700;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  pointer-events: none;
+  z-index: 16;                 /* encima de pétalos pero detrás del reproductor */
+  white-space: nowrap;
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation-name: fallText, swayText;
+  animation-iteration-count: infinite, infinite;
+  animation-timing-function: linear, ease-in-out;
+  opacity: 0.95;
+}
+
+/* Keyframes para las palabras (paralelas a los corazones, ligeras variaciones) */
+@keyframes fallText{
+  0% { transform: translateY(-12vh) translateX(0) rotate(0deg); opacity: 1; }
+  85% { opacity: 0.95; }
+  100% { transform: translateY(110vh) translateX(24px) rotate(45deg); opacity: 0.08; }
+}
+
+@keyframes swayText{
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(20px) rotate(6deg); }
+  100% { transform: translateX(-14px) rotate(-10deg); }
+}
+
+/* Ajustes responsivos para texto */
+@media (max-width: 600px) {
+  .petal-container .bubu { font-size: clamp(12px, 3.5vw, 18px); }
+}
+
+/* --- resto de tu CSS --- */
+/* conserva las reglas .video-player-wrapper, .video-overlay, .page-header, etc. */
+body {
+    margin: 0;
+    padding: 0;
+    /* permitir desplazamiento vertical si hace falta y ocultar solo overflow horizontal */
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #fdeaf2;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra header y el wrapper horizontalmente */
+}
+
+.video-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.petal-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.petal {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f3aacb;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        transform: translateY(100vh) translateX(-50%);
+    }
+}
+
+@media (min-width: 768px) {
+    .petal {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .petal {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.video-player-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    pointer-events: auto;
+}
+
+/* ajusta el overlay para coincidir con el ancho fijo */
+.video-overlay {
+   /* position: absolute;/
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 120px;
+    /* reducir la superposición para no tapar el título */
+    margin-top: -40px;
+    z-index: 12;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-gradient {
+    width: 100%;
+    height: 96px;
+    border-radius: 14px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(90deg, var(--pink-1), var(--pink-2), var(--pink-3), var(--pink-4));
+    opacity: 0.95;
+}
+
+/* contenedor del video con ancho fijo de 500px y responsividad */
+.video-player-container {
+    width: 900px;
+    max-width: 95%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.45));
+}
+
+#videoPlayer {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #000;
+}
+
+/* Título principal encima del reproductor */
+.page-header{
+  position: relative;
+  border-radius: 35px;   
+background-color: #fbd5e5;        /* más alto por seguridad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 1rem 0.5rem;
+  pointer-events: none;
+  margin: 8rem auto 1rem;  /* centra y separa del recuadro */
+  text-align: center;
+}
+
+.invite-title{
+  font-weight:700;
+  font-style: italic;
+  font-size:clamp(1.6rem, 4vw, 2.6rem);
+  text-align:center;
+  /* contraste suave sobre el fondo rosado */
+  letter-spacing:0.4px;
+  margin:0;
+  padding:0.25rem 0.75rem;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  backdrop-filter: blur(4px);
+
+}
+
+/* Texto informativo debajo del reproductor */
+.event-info{
+  margin: 1rem auto 2rem;
+  max-width: 500px;
+  text-align: center;
+  font-weight: 600;
+  color: #4a2a3a;
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, rgba(243,170,203,0.06), rgba(247,191,216,0.04));
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Ajuste móvil */
+@media (max-width:420px){
+  .page-header{ padding-top:0.8rem }
+  .invite-title{ font-size:1.4rem; padding:0.2rem 0.5rem }
+  .event-info{ font-size: 0.95rem; padding: 0.35rem 0.6rem; margin-bottom:1.2rem }
+}
