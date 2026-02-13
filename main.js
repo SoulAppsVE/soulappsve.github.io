@@ -1,5 +1,5 @@
 const videoPlayer = document.createElement("video");
-videoPlayer.src = "../videos/sample-video.mp4";
+videoPlayer.src = "../sample-video.mp4";
 videoPlayer.controls = true;
 videoPlayer.style.width = "80%";
 videoPlayer.style.borderRadius = "10px";
