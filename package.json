@@ -1,0 +1,22 @@
+{
+  "name": "pink-petal-video-page",
+  "version": "1.0.0",
+  "description": "A web page with falling pink petals and a video player.",
+  "main": "src/scripts/main.js",
+  "scripts": {
+    "start": "live-server .",
+    "build": "echo 'Build step can be added here.'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "keywords": [
+    "video",
+    "petals",
+    "animation",
+    "web"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

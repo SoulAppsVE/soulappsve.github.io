@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Pink Petals Video Player</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+    <div class="petal-container" aria-hidden="true"></div>
+
+    <!-- Añadido: título arriba del reproductor -->
+    <header class="page-header" role="banner" aria-label="Invitación">
+        <h1 class="invite-title">Estás cordialmente invitada a una cita</h1>
+    </header>
+
+    <div class="video-player-wrapper">
+        <div class="video-overlay">
+            <!-- Colores encima del reproductor: #f3aacb, #f7bfd8, #fbd5e5, #fdeaf2 -->
+            <div class="overlay-gradient"></div>
+        </div>
+
+        <div class="video-player-container">
+            <video id="videoPlayer" controls preload="metadata">
+                <source src="videos/video.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+        </div>
+    </div>
+
+    <!-- Añadido: información del evento debajo del reproductor -->
+    <div class="event-info" aria-hidden="false">
+        Fecha: 14 de Febrero. Hora: 11:30 am. No faltes
+    </div>
+
+
+    <script src="src/scripts/petals.js"></script>
+    <script src="src/scripts/main.js"></script>
+</body>
+</html>
